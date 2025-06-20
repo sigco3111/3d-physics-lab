@@ -332,7 +332,10 @@ const PhysicsCanvas: React.ForwardRefRenderFunction<PhysicsCanvasHandle, Physics
           'XYZ'
         );
         mesh.quaternion.setFromEuler(euler);
-        mesh.updateMatrixWorld(true); 
+        // mesh가 존재하고 updateMatrixWorld 메소드가 있는지 확인
+        if (mesh && typeof mesh.updateMatrixWorld === 'function') {
+          mesh.updateMatrixWorld(true);
+        }
         
         sceneRef.current?.add(mesh); 
         meshesRef.current[obj.id] = mesh;
@@ -401,7 +404,10 @@ const PhysicsCanvas: React.ForwardRefRenderFunction<PhysicsCanvasHandle, Physics
           'XYZ'
         );
         mesh.quaternion.setFromEuler(euler);
-        mesh.updateMatrixWorld(true);
+        // mesh가 존재하고 updateMatrixWorld 메소드가 있는지 확인
+        if (mesh && typeof mesh.updateMatrixWorld === 'function') {
+          mesh.updateMatrixWorld(true);
+        }
       }
     });
 
@@ -419,8 +425,14 @@ const PhysicsCanvas: React.ForwardRefRenderFunction<PhysicsCanvasHandle, Physics
             }
             transformControlsRef.current.visible = true;
             transformControlsRef.current.enabled = true;
-            targetMesh.updateMatrixWorld(true);
-            transformControlsRef.current.updateMatrixWorld(true);
+            // targetMesh가 존재하고 updateMatrixWorld 메소드가 있는지 확인
+            if (targetMesh && typeof targetMesh.updateMatrixWorld === 'function') {
+              targetMesh.updateMatrixWorld(true);
+            }
+            // transformControlsRef.current가 존재하고 updateMatrixWorld 메소드가 있는지 확인
+            if (transformControlsRef.current && typeof transformControlsRef.current.updateMatrixWorld === 'function') {
+              transformControlsRef.current.updateMatrixWorld(true);
+            }
         } else { 
             if (currentGizmoObject) {
                 transformControlsRef.current.detach();
