@@ -261,16 +261,19 @@ const App: React.FC = () => {
         console.error(LOG_PREFIX_APP, "Error loading scene library from localStorage:", error);
       }
   
+            // 로컬스토리지에 저장된 장면이 없거나 비어있는 경우 기본 장면을 로드
       if (!loadedFromLocalStorage) {
-        console.log(LOG_PREFIX_APP, "Attempting to load default scene library from physics_lab_scenes.json");
+        console.log(LOG_PREFIX_APP, "로컬스토리지에 장면이 없음. 기본 장면 라이브러리를 로드합니다.");
+        
         try {
           const response = await fetch('/physics_lab_scenes.json'); 
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status} for /physics_lab_scenes.json. Make sure the file exists in the public directory.`);
           }
           const data: unknown = await response.json();
-  
+
           if (Array.isArray(data) && data.length > 0) {
+            // 데이터 검증 - 각 장면이 필수 속성을 가지고 있는지 확인
             const isValidData = data.every(scene =>
               typeof scene.id === 'string' &&
               typeof scene.name === 'string' &&
@@ -283,33 +286,41 @@ const App: React.FC = () => {
               typeof (scene.globalPhysicsSettings.gravity as Vector3).z === 'number' &&
               typeof scene.globalPhysicsSettings.simulationSpeed === 'number'
             );
-  
+
             if (isValidData) {
               initialLibraryScenes = data as SavedScene[];
-              console.log(LOG_PREFIX_APP, `Default scene library loaded from JSON file: ${initialLibraryScenes.length}`);
+              console.log(LOG_PREFIX_APP, `기본 장면 라이브러리 로드 완료: ${initialLibraryScenes.length}개 장면`);
+              
+              // 기본 장면 데이터를 로컬스토리지에 저장
               try {
                 localStorage.setItem(LOCAL_STORAGE_KEY_SCENES, JSON.stringify(initialLibraryScenes));
-                console.log(LOG_PREFIX_APP, "Default scene library saved to localStorage.");
+                console.log(LOG_PREFIX_APP, "기본 장면 라이브러리가 로컬스토리지에 저장되었습니다.");
               } catch (storageError) {
-                console.error(LOG_PREFIX_APP, "Error saving default scene library to localStorage:", storageError);
+                console.error(LOG_PREFIX_APP, "기본 장면 라이브러리 로컬스토리지 저장 오류:", storageError);
               }
             } else {
-              console.error(LOG_PREFIX_APP, "Default scene library JSON data is invalid.");
+              console.error(LOG_PREFIX_APP, "기본 장면 라이브러리 JSON 데이터가 유효하지 않습니다.");
             }
           } else {
-             console.log(LOG_PREFIX_APP, "Default scene library JSON file is empty or not an array.");
+             console.log(LOG_PREFIX_APP, "기본 장면 라이브러리 JSON 파일이 비어있거나 배열이 아닙니다.");
           }
         } catch (error) {
-          console.error(LOG_PREFIX_APP, "Error fetching or parsing default scene library JSON:", error);
+          console.error(LOG_PREFIX_APP, "기본 장면 라이브러리 JSON 로드 오류:", error);
+          console.log(LOG_PREFIX_APP, "기본 장면 로드에 실패했습니다. 빈 장면 라이브러리로 시작합니다.");
         }
       }
   
+            // 장면 라이브러리 설정
       if (initialLibraryScenes && initialLibraryScenes.length > 0) {
         setSavedScenes(initialLibraryScenes);
+        console.log(LOG_PREFIX_APP, `장면 라이브러리 설정 완료: ${initialLibraryScenes.length}개 장면 사용 가능`);
+      } else {
+        console.log(LOG_PREFIX_APP, "장면 라이브러리가 비어있습니다.");
       }
-  
+
+      // 에디터가 비어있으면 기본 상태로 초기화
       if (physicsObjects.length === 0 && constraints.length === 0) {
-        console.log(LOG_PREFIX_APP, "Editor is empty on initial load. Resetting to a blank scene.");
+        console.log(LOG_PREFIX_APP, "에디터가 비어있습니다. 기본 장면으로 초기화합니다.");
         handleResetScene(false); 
       }
     };
