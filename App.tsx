@@ -1,7 +1,6 @@
 
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import * // Import THREE
-from 'three';
+import * as THREE from 'three';
 import { 
     PhysicsObject, ObjectType, SimulationStatus, Vector3, 
     PhysicsObjectProperties, UpdatableCannonObjectFields, BodiesState, 
