@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D 물리 실험실</title>
+    <!-- 파비콘 설정 -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" sizes="32x32" href="/favicon-32x32.svg">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="/favicon-16x16.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Cannon.js still loaded globally -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.6.2/cannon.min.js"></script>
+    <style>
+      body { margin: 0; overflow: hidden; font-family: sans-serif; background-color: #1a202c; /* Tailwind bg-gray-900 */ }
+      #root { width: 100vw; height: 100vh; display: flex; }
+      /* Custom scrollbar for properties editor */
+      .properties-editor-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .properties-editor-scrollbar::-webkit-scrollbar-track {
+        background: #2d3748; /* Tailwind gray-800 */
+      }
+      .properties-editor-scrollbar::-webkit-scrollbar-thumb {
+        background: #4a5568; /* Tailwind gray-600 */
+        border-radius: 4px;
+      }
+      .properties-editor-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #718096; /* Tailwind gray-500 */
+      }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "three": "https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.158.0/examples/jsm/",
+    "three/": "https://esm.sh/three@^0.177.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.5.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
