@@ -707,6 +707,12 @@ const App: React.FC = () => {
     if (!id) { 
         console.log(LOG_PREFIX_APP, "Object deselected, turning off gizmo.");
         setGizmoMode(null); 
+    } else {
+        // 오브젝트가 선택되었을 때 기즈모 모드를 자동으로 활성화
+        if (simulationStatus !== 'playing' && gizmoMode === null) {
+            console.log(LOG_PREFIX_APP, "Object selected, activating translate gizmo mode.");
+            setGizmoMode('translate');
+        }
     }
   }, [gizmoMode, simulationStatus]);
 
