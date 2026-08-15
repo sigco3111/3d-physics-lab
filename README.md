@@ -4,7 +4,10 @@
 
 3D 물리 실험실은 사용자가 다양한 3D 객체를 만들고, 물리적 속성을 조정하며, 실시간으로 시뮬레이션 결과를 관찰할 수 있는 대화형 웹 애플리케이션입니다. Google Gemini API를 활용하여 자연어 프롬프트를 통해 복잡한 장면을 자동으로 생성하는 기능을 제공합니다. React, Three.js, Cannon.js를 주요 기술로 사용합니다.
 
-실행 주소 : https://dev-canvas-pi.vercel.app/
+
+[![Live](https://img.shields.io/badge/Live-GitHub%20Pages-222222?style=for-the-badge&logo=githubpages&logoColor=white)](https://sigco3111.github.io/3d-physics-lab/)
+
+> **호스팅 이력**: 본 프로젝트는 Vercel에서 운영되었으나 2026-08에 GitHub Pages로 전환했습니다. 공식 라이브 데모는 위 Pages URL입니다.
 
 ## ✨ 주요 기능
 
